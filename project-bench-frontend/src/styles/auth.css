@@ -1,0 +1,16 @@
+.auth-page {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.auth-card {
+  border: none;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.auth-card .card-body {
+  background: white;
+}
