@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Allocation = require("../models/Allocation");
+const Project = require("../models/Project");
 const Request = require("../models/Request");
 const User = require("../models/User");
 const { AppError, asyncHandler } = require("../utils/errorHandler");
@@ -173,6 +174,16 @@ const getManagerDashboard = asyncHandler(async (req, res) => {
   });
 });
 
+const getManagerProjects = asyncHandler(async (req, res) => {
+  const projects = await Project.find().sort({ createdAt: -1 });
+
+  res.status(200).json({
+    success: true,
+    count: projects.length,
+    data: projects,
+  });
+});
+
 module.exports = {
   searchBenchEmployees,
   getBenchEmployeeDetails,
@@ -181,4 +192,5 @@ module.exports = {
   createManagerRequest,
   getManagerRequestStatus,
   getManagerDashboard,
+  getManagerProjects,
 };
