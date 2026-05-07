@@ -165,6 +165,7 @@ export default function EmployeeDashboard() {
                       size="sm"
                       onClick={() => handleUpdateBenchStatus('Assigned')}
                       className="w-100"
+                      disabled={loading}
                     >
                       Mark as Assigned
                     </Button>
@@ -177,9 +178,16 @@ export default function EmployeeDashboard() {
                       size="sm"
                       onClick={() => handleUpdateBenchStatus('Bench')}
                       className="w-100"
+                      disabled={loading || project !== null}
+                      title={project ? "You cannot mark as Bench while assigned to a project" : ""}
                     >
                       Mark as Bench
                     </Button>
+                    {project && (
+                      <small className="text-danger d-block mt-2">
+                        ⚠️ You cannot change to Bench status while assigned to a project
+                      </small>
+                    )}
                   </>
                 )}
               </Card.Body>

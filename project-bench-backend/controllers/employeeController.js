@@ -54,6 +54,21 @@ const updateBenchStatus = asyncHandler(async (req, res) => {
     throw new AppError("status must be either Bench or Assigned", 400);
   }
 
+  // Check if employee has active allocation and is trying to mark as Bench
+  if (status === "Bench") {
+    const activeAllocation = await Allocation.findOne({
+      employeeId: req.user._id,
+      releaseDate: null,
+    });
+
+    if (activeAllocation) {
+      throw new AppError(
+        "Cannot mark as Bench while assigned to a project. Please wait for project release or ask your manager to release you.",
+        400
+      );
+    }
+  }
+
   const benchStatus = status === "Bench";
 
   const user = await User.findByIdAndUpdate(
